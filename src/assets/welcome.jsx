@@ -7,12 +7,14 @@ const Welcome = () => {
 
   return (
     <div className="welcome-container">
-      <h1>Welcome to SafeStreet</h1>
-      <p className="tagline">Making streets safer, one report at a time.</p>
+      <div class="welcome-box">
+        <h1><i>Welcome to SafeStreet</i></h1>
+        <p className="tagline">Making streets safer, one report at a time.</p>
 
-      <div className="button-container">
-        <button onClick={() => navigate("/login")} className="btn">Login</button>
-        <button onClick={() => navigate("/signup")} className="btn">Register</button>
+        <div className="button-container">
+          <button onClick={() => navigate("/login")} className="btn">Login</button>
+          <button onClick={() => navigate("/signup")} className="btn">Register</button>
+        </div>
       </div>
     </div>
   );
