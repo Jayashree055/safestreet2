@@ -1,32 +1,37 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+
+import "./login.css";
+
 const Login = ()=>{
-    const [action,setAction] = useState("Login");
-    return (
-       <div className='login-container'>
-        <div className='login-header'>
-            <div className='text'>{action}</div>
-            <div className='underline'></div>
+    return(
+        <>
+        <form>
+        <div className='login-container'>
+            <div className='login'>
+                <div className='title'><h1>LOGIN</h1></div>
+                <div className='inputs'>UserName: </div>
+                <input type='text' placeholder='Enter username'/><br/>
+                <div className='inputs'>Password: </div>
+                <input type='password' placeholder='Enter password'/>
+                    <div className="fplink">
+                        Forgot your password?{' '}
+                        <Link to="/forgotpassword">Click here to reset it!</Link>  
+                    
+                    </div>
+                    
+                    <button onClick={() => navigate("/home")}className="btn">Login</button>
+                    <div className="register">
+                        New User?{' '}
+                        <Link to="/register">Register</Link>  
+                    
+                    
+                    </div>
+                </div>
         </div>
-        <div className='inputs'>
-            <div className='input'>
-                <img src="" alt=""/>
-                <input type='text' placeholder='UserName'/>
-            </div>
-
-            
-            <div className='input'>
-                <img src="" alt=""/>
-                <input type='password' placeholder='Password'/>
-
-            </div>
-        
-        </div>
-        <div className='forgot-password'>Forgot Password? <span>Click Here!</span></div>
-        <div className='submit-container'>
-            <div className={action=='Login'?"submit gray":"submit"} onClick={()=>{setAction("Register")}}>SIGN UP</div>
-            <div className={action=='Sign Up'?"submit gray":"submit"} onClick={()=>{setAction("Login")}}>LOGIN</div>
-        </div>
-       </div>
+        </form>
+        </>
     )
 }
-export default Login
+export default Login;
