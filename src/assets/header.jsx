@@ -8,6 +8,8 @@ function Header({OpenSidebar}){
         </div>
         <div className='header-left'>
             <BsSearch className='icon'/>
+            <input type='text' placeholder='Search'/><br/>
+
         </div>
         <div className='header-right'>
             <BsFillBellFill className='icon'/>
