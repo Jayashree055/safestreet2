@@ -5,10 +5,16 @@ import { MapContainer,TileLayer,Marker,Popup } from "react-leaflet";
 import { useLocation } from "react-router-dom";
 console.log("DamageReports Component Loaded!");
 
+
+
+
+
+
 const Damage_Reports = () => {
   const location=useLocation();
   const queryParams = new URLSearchParams(location.search);
   const filter = queryParams.get("filter");
+  const [emailSending, setEmailSending] = useState(false);
   const [reports, setReports] = useState([
     { id: 1, location: "Mumbai, Maharashtra", severity: "High", status: "Pending", date: "2025-02-25", lat:19.0760,lng:72.8777 },
   { id: 2, location: "Delhi", severity: "Medium", status: "Resolved", date: "2025-02-20",lat: 28.7041, lng: 77.1025},
@@ -31,6 +37,8 @@ const Damage_Reports = () => {
   { id: 19, location: "Nagpur, Maharashtra", severity: "Medium", status: "In Progress", date: "2025-04-18",lat: 21.1458, lng: 79.0882},
   { id: 20, location: "Visakhapatnam, Andhra Pradesh", severity: "High", status: "Pending", date: "2025-04-20",lat: 17.6868, lng: 83.2185}
   ]);
+  
+
  
   
   const [filteredReports,setFilteredReports] = useState(reports);
@@ -48,15 +56,42 @@ const Damage_Reports = () => {
       setFilteredReports(reports); // Show all reports
     }
   }, [filter,reports]);
+
+  const sendEmailNotification = async (recipient, report) => {
+    setEmailSending(true);
+    try {
+      const response = await fetch("http://localhost:5000/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          to: recipient,
+          subject:` Damage Report ID ${report.id} - ${report.severity} Severity`,
+          text: `This is to inform you that we have received your report and understand the severity of the report. We assure you that the problem will be solved as soon as possible keeping the risk of the travelers in mind`,
+          html: `<p><strong>Damage Report</strong></p><p>Location: ${report.location}</p><p>Severity: ${report.severity}</p><p>Status: ${report.status}</p><p>Date: ${report.date}</p>`,
+        }),
+      });
+  
+      if (response.ok) {
+        alert("Email sent successfully!");
+      } else {
+        alert("Failed to send email.");
+      }
+    } catch (err) {
+      console.error("Error sending email:", err);
+      alert("Error sending email.");
+    } finally {
+      setEmailSending(false);
+    }
+  };
   
 
   return (
     <div className="damage-reports-container">
       <h1 className="damage-reports-header">Damage Reports</h1>
 
-      {/* ✅ Layout for Table + Map */}
+      {/* Layout for Table + Map */}
       <div className="damage-reports-content">
-        {/* ✅ Damage Reports Table */}
+        {/* Damage Reports Table */}
         <div className="damage-reports-table">
           <table>
             <thead>
@@ -66,7 +101,6 @@ const Damage_Reports = () => {
                 <th>Severity</th>
                 <th>Status</th>
                 <th>Date</th>
-                {/* <th>Email</th> */}
               </tr>
             </thead>
             <tbody>
@@ -81,16 +115,17 @@ const Damage_Reports = () => {
                     {report.status}
                   </td>
                   <td>{report.date}</td>
-                  {/* <td>
+                  <td>
                     {report.status === "Pending" && (
-                      <button
-                        onClick={() => sendEmailNotification("user@example.com", report.id)}
-                      >
-                        Send Email
-                      </button>
+                    <button onClick={() => sendEmailNotification("jayashreeindrani52@gmail.com", report)} disabled={emailSending}>
+                    {emailSending ? "Sending..." : "Send Email"}
+                  </button>
+                  
                     )}
-                  </td> */}
+                  </td>
+
                 </tr>
+                
               ))}
             </tbody>
           </table>
@@ -120,60 +155,3 @@ const Damage_Reports = () => {
 
 
 export default Damage_Reports;
-
-// import React from "react";
-// import "../App.css"; // Ensure you have the correct path to your CSS file
-
-// const Damage_Reports = () => {
-//   // Sample reports data
-//   const reports = [
-//     { id: 1, location: "Mumbai, Maharashtra", severity: "High", status: "Pending", date: "2025-02-25" },
-//     { id: 2, location: "Delhi", severity: "Medium", status: "Resolved", date: "2025-02-20" },
-//     { id: 3, location: "Bangalore, Karnataka", severity: "High", status: "Pending", date: "2025-03-05" },
-//     { id: 4, location: "Hyderabad, Telangana", severity: "Low", status: "Resolved", date: "2025-03-02" },
-//     { id: 5, location: "Chennai, Tamil Nadu", severity: "Medium", status: "In Progress", date: "2025-03-10" },
-//     { id: 6, location: "Kolkata, West Bengal", severity: "High", status: "Pending", date: "2025-03-08" },
-//     { id: 7, location: "Pune, Maharashtra", severity: "Low", status: "Resolved", date: "2025-02-28" },
-//     { id: 8, location: "Ahmedabad, Gujarat", severity: "Medium", status: "In Progress", date: "2025-03-12" },
-//     { id: 9, location: "Jaipur, Rajasthan", severity: "High", status: "Pending", date: "2025-03-15" },
-//     { id: 10, location: "Lucknow, Uttar Pradesh", severity: "Medium", status: "Resolved", date: "2025-03-18" },
-//   ];
-
-//   return (
-//     <div className="damage-reports-container">
-//       <h1 className="damage-reports-header">Damage Reports</h1>
-
-//       {/* Damage Reports Table */}
-//       <div className="damage-reports-table">
-//         <table>
-//           <thead>
-//             <tr>
-//               <th>ID</th>
-//               <th>Location</th>
-//               <th>Severity</th>
-//               <th>Status</th>
-//               <th>Date</th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {reports.map((report) => (
-//               <tr key={report.id}>
-//                 <td>{report.id}</td>
-//                 <td>{report.location}</td>
-//                 <td className={report.severity === "High" ? "high-severity" : "medium-severity"}>
-//                   {report.severity}
-//                 </td>
-//                 <td className={report.status === "Resolved" ? "status-resolved" : "status-pending"}>
-//                   {report.status}
-//                 </td>
-//                 <td>{report.date}</td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Damage_Reports;

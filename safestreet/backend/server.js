@@ -1,7 +1,13 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
+// import express from "express";
+// import mongoose from "mongoose";
+// import cors from "cors";
+ const mongoose = require("mongoose");
+ const cors = require("cors");
+// import dotenv from "dotenv";
+// dotenv.config();
 
+require("dotenv").config();
 const app = express();
 const PORT = 5000;
 
@@ -9,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB connection
-mongoose.connect("mongodb+srv://jayashreeindrani52:Tekiindu07@cluster0.oyco3gx.mongodb.net/Safestreet?retryWrites=true&w=majority&appName=Cluster0", {
+mongoose.connect("mongodb+srv://sravani_j:MongoDB%40123@cluster0.wetgiw4.mongodb.net/safestreet?retryWrites=true&w=majority&appName=Cluster0", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
@@ -74,4 +80,54 @@ app.post("/api/user", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+const nodemailer = require('nodemailer');
+// import nodemailer from "nodemailer";
 
+// Create a transporter
+const transporter = nodemailer.createTransport({
+  service: 'gmail',  
+  auth: {
+    user: process.env.EMAIL_USER,  
+    pass: process.env.EMAIL_PASS    
+  }
+});
+
+// Email sending function
+const sendEmail = (to, subject, text, htmlContent) => {
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: to,
+    subject: subject,
+    text: text,  // plain text body
+    html: htmlContent  // HTML body (optional)
+  };
+
+  // Send email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log('Error occurred:', error);
+    } else {
+      console.log('Email sent:', info.response);
+    }
+  });
+};
+
+
+
+app.post("/send-email", async (req, res) => {
+  const { to, subject, text, html } = req.body;
+  console.log("Text Body:", text);  // Log the plain text part
+  console.log("HTML Body:", html); 
+  try {
+    sendEmail(to, subject, text, html);
+    res.status(200).json({ message: "Email sent successfully" });
+  } catch (error) {
+    console.error("Error sending email:", error);
+    res.status(500).json({ message: "Failed to send email" });
+  }
+});
+
+
+
+module.exports = sendEmail;
+// export default sendEmail;
