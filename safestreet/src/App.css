@@ -599,7 +599,7 @@ body {
 
 /* Welcome Page */
 .welcome-container {
-  background: url("/welcome.jpg") no-repeat center center/cover;
+  background: url("/welcome.png") no-repeat center center/cover;
   display: flex;
   justify-content: space-evenly; /* Center content by default */
   align-items: center;
