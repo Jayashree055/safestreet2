@@ -1,0 +1,31 @@
+.email-history-container {
+    padding: 2rem;
+    color: white;
+  }
+  
+  .email-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .email-card {
+    background-color: #1f2937; /* dark card */
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+  }
+  
+  .email-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .email-card p {
+    margin: 0.5rem 0;
+  }
+  .mail-container {
+    cursor: pointer;
+  }
+  

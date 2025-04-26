@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../App.css";
 import { Link, useNavigate } from "react-router-dom";
+import PasswordInput from './PasswordInput';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -67,7 +68,7 @@ const Register = () => {
               required
             />
           </div>
-          <div className="input-group">
+          {/* <div className="input-group">
             <label>Password:</label>
             <input
               type="password"
@@ -89,7 +90,23 @@ const Register = () => {
               }}
               required
             />
-          </div>
+          </div> */}
+          <div className='inputs'>Password: </div>
+            <PasswordInput
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              required
+            />
+
+            <div className='inputs'>Confirm Password: </div>
+            <PasswordInput
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirm your password"
+              required
+            />
+
           <p className="fplink">
             Already have an account? <Link to="/login">Login</Link>
           </p>

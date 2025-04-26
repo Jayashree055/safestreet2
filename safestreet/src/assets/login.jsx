@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import "../App.css";
+// import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import PasswordInput from './PasswordInput';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -52,12 +54,19 @@ const Login = () => {
               required
             /><br/>
 
-            <div className='inputs'>Password: </div>
+            {/* <div className='inputs'>Password: </div>
             <input
               type='password'
               placeholder='Enter password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
+            /> */}
+            <div className='inputs'>Password: </div>
+            <PasswordInput
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
               required
             />
 

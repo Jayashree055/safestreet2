@@ -599,7 +599,7 @@ body {
 
 /* Welcome Page */
 .welcome-container {
-  background: url("/public/welcome.jpg") no-repeat center center/cover;
+  background: url("/welcome.jpg") no-repeat center center/cover;
   display: flex;
   justify-content: space-evenly; /* Center content by default */
   align-items: center;
@@ -731,7 +731,7 @@ body {
   }
 }
 .register-container {
-  background: url("/public/register.jpeg") no-repeat center center/cover;
+  background: url("/register.jpeg") no-repeat center center/cover;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -865,13 +865,13 @@ body {
 }
 
 .login-container {
-  background-image: url("/public/image.png");
+  background-image: url("/image.png");
  
   height:100vh;
 }
 
 .forgotpwd-container {
-  background-image: url("/public/pwd2.jpg");
+  background-image: url("/pwd2.jpg");
   
 }
 
@@ -996,4 +996,39 @@ input::placeholder {
   .forgotpwd h1 {
     font-size: 1.5rem;
   }
+}
+
+
+
+
+
+.email-history-container {
+  padding: 2rem;
+  color: white;
+}
+
+.email-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.email-card {
+  background-color: #1f2937; /* dark card */
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s;
+}
+
+.email-card:hover {
+  transform: translateY(-5px);
+}
+
+.email-card p {
+  margin: 0.5rem 0;
+}
+.mail-container {
+  cursor: pointer;
 }
