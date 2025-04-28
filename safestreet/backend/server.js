@@ -280,6 +280,35 @@ app.get("/api/email-count", async (req, res) => {
   }
 });
 
+let otpStore = {};  // Add this at the top (after your imports)
+
+app.post("/api/send-otp", async (req, res) => {
+  const { email } = req.body;
+  
+  const otp = Math.floor(100000 + Math.random() * 900000); // Random 6-digit code
+
+  otpStore[email] = otp; // Save temporarily in memory
+  
+  const subject = "Your SafeStreet Verification Code";
+  const text = `Your verification code is: ${otp}`;
+
+  sendEmail(email, subject, text);  // Using your existing sendEmail function
+
+  res.status(200).json({ message: "OTP sent to email" });
+});
+
+app.post("/api/verify-otp", (req, res) => {
+  const { email, otp } = req.body;
+
+  if (otpStore[email] && otpStore[email] == otp) {
+    delete otpStore[email]; // Remove OTP after success
+    return res.status(200).json({ message: "OTP verified successfully!" });
+  } else {
+    return res.status(400).json({ message: "Invalid or expired OTP" });
+  }
+});
+
+
 // Server Start
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

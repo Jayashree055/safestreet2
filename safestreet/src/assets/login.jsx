@@ -122,17 +122,43 @@ const Login = () => {
 
       const data = await response.json();
 
-      if (response.ok) {
-        alert("Login successful!");
+    //   if (response.ok) {
+    //     alert("Login successful!");
+    //     localStorage.setItem("userEmail", email);
+    //     navigate("/otp");
+    //   } else {
+    //     setError(data.message || "Login failed");
+    //   }
+    // } catch (err) {
+    //   console.error("Login error:", err);
+    //   setError("Something went wrong. Please try again.");
+    // }
+    if (response.ok) {
+      // Step 2: If login successful, send OTP
+      const otpResponse = await fetch("http://localhost:5000/api/send-otp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const otpData = await otpResponse.json();
+
+      if (otpResponse.ok) {
+        alert("Login successful! OTP sent to your email.");
         localStorage.setItem("userEmail", email);
-        navigate("/home");
+        navigate("/otp");
       } else {
-        setError(data.message || "Login failed");
+        setError(otpData.message || "Failed to send OTP");
       }
-    } catch (err) {
-      console.error("Login error:", err);
-      setError("Something went wrong. Please try again.");
+    } else {
+      setError(data.message || "Login failed");
     }
+  } catch (err) {
+    console.error("Login error:", err);
+    setError("Something went wrong. Please try again.");
+  }
   };
 
   return (

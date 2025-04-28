@@ -601,7 +601,7 @@ body {
 .welcome-container {
   background: url("/welcome.png") no-repeat center center/cover;
   display: flex;
-  justify-content: space-evenly; /* Center content by default */
+  justify-content: space-evenly; 
   align-items: center;
   height:100%;
   width: 100%;
@@ -610,6 +610,8 @@ body {
   box-sizing: border-box;
   margin-left: 0; 
 }
+
+
 
 /* Content inside welcome container */
 .welcome-box{
@@ -818,6 +820,7 @@ body {
   padding: 10px;
   border: 1px solid #070606;
   border-radius: 5px;
+  color: #020506;
 }
 
 .contact-form button {
@@ -998,7 +1001,58 @@ input::placeholder {
   }
 }
 
+/* otp */
+.otp-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70%; /* Full screen height */
+  background-color: #1d2634 ;
+}
 
+.otp-container h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color:white;
+}
+
+.otp-container ::placeholder { 
+  color: whitesmoke;
+}
+.otp-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.otp-container input {
+  width: 200px;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  border: 1px solid #eeeff4;
+  border-radius: 8px;
+  text-align: center;
+  color: #020506;
+}
+
+.otp-container .btn {
+  width: 150px;
+  padding: 10px;
+  font-size: 18px;
+  background-color: #007bff; /* Blue button */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.otp-container .btn:hover {
+  background-color: #0056b3;
+}
 
 
 

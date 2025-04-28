@@ -73,33 +73,10 @@ import ForgotPassword from "./assets/forgotpassword";
 import Register from "./assets/register";
 import Contact from "./assets/contact";
 import EmailHistory from "./assets/EmailHistory";
+import Otp from "./assets/otp";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-// function App() {
-//   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
-//   const [isMobile, setIsMobile] = useState(false);
-//   const [user, setUser] = useState(null); // <-- Store user info
 
-//   const toggleSidebar = () => {
-//     setOpenSidebarToggle(!openSidebarToggle);
-//   };
-
-//   useEffect(() => {
-//     const handleResize = () => {
-//       setIsMobile(window.innerWidth <= 768);
-//     };
-//     window.addEventListener("resize", handleResize);
-//     handleResize();
-//     return () => window.removeEventListener("resize", handleResize);
-//   }, []);
-
-//   useEffect(() => {
-//     // Replace this with your actual API call
-//     fetch("/api/user")
-//       .then((res) => res.json())
-//       .then((data) => setUser(data))
-//       .catch((err) => console.error("Failed to fetch user", err));
-//   }, []);
 function App() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -160,6 +137,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/EmailHistory" element={<EmailHistory />} />
+            <Route path="/otp" element={<Otp />} />
           </Routes>
         </main>
       </div>
